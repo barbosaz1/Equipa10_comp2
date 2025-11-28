@@ -1,4 +1,4 @@
-package gestaoeventos;
+package gestaoeventos.entity;
 
 public enum PerfilUtilizador {
     ADMIN,
