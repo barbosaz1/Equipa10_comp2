@@ -53,5 +53,102 @@ public class Utilizador {
     @OneToMany(mappedBy = "autor")
     private Set<LogAuditoria> logsCriados = new HashSet<>();
     
+    // getters e setters
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public PerfilUtilizador getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(PerfilUtilizador perfil) {
+        this.perfil = perfil;
+    }
+
+    public LocalDateTime getDataRegisto() {
+        return dataRegisto;
+    }
+
+    public void setDataRegisto(LocalDateTime dataRegisto) {
+        this.dataRegisto = dataRegisto;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Set<Evento> getEventosCriados() {
+        return eventosCriados;
+    }
+
+    public void setEventosCriados(Set<Evento> eventosCriados) {
+        this.eventosCriados = eventosCriados;
+    }
+
+    public Set<Inscricao> getInscricoes() {
+        return inscricoes;
+    }
+
+    public void setInscricoes(Set<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
+    }
+
+    public Set<ListaEspera> getEntradasListaEspera() {
+        return entradasListaEspera;
+    }
+
+    public void setEntradasListaEspera(Set<ListaEspera> entradasListaEspera) {
+        this.entradasListaEspera = entradasListaEspera;
+    }
+
+    public Set<Notificacao> getNotificacoes() {
+        return notificacoes;
+    }
+
+    public void setNotificacoes(Set<Notificacao> notificacoes) {
+        this.notificacoes = notificacoes;
+    }
+
+    public Set<LogAuditoria> getLogsCriados() {
+        return logsCriados;
+    }
+
+    public void setLogsCriados(Set<LogAuditoria> logsCriados) {
+        this.logsCriados = logsCriados;
+    }
     
 }
