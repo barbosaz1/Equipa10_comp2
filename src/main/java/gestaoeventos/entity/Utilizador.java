@@ -30,5 +30,28 @@ public class Utilizador {
 
     @Column(name = "ativo", nullable = false)
     private boolean ativo = true;
+    
+    //relacoes
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "criador")
+    private Set<Evento> eventosCriados = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "utilizador")
+    private Set<Inscricao> inscricoes = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "utilizador")
+    private Set<ListaEspera> entradasListaEspera = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "destinatario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Notificacao> notificacoes = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "autor")
+    private Set<LogAuditoria> logsCriados = new HashSet<>();
+    
+    
 }
