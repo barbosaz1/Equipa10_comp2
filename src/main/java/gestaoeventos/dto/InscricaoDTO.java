@@ -1,3 +1,5 @@
+package gestaoeventos.dto;
+
 import java.time.LocalDateTime;
 
 public class InscricaoDTO {
