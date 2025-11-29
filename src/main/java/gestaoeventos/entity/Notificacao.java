@@ -37,7 +37,7 @@ public class Notificacao {
 
     public Notificacao() {}
 
-    // GETTERS & SETTERS OBRIGATÓRIOS
+    // GETTERS & SETTERS
 
     public Integer getId() {
         return id;
