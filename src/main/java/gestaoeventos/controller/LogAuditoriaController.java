@@ -20,5 +20,13 @@ public class LogAuditoriaController {
     public List<LogAuditoriaDTO> listarTodos() {
         return logAuditoriaService.listarTodos();
     }
+    
+    @GetMapping("/entidade/{entidade}/{id}")
+    public List<LogAuditoriaDTO> listarPorEntidade(@PathVariable String entidade,
+                                                   @PathVariable Integer id) {
+        return logAuditoriaService.listarPorEntidade(entidade, id);
+    }
+
+    
 
 }
