@@ -337,7 +337,6 @@ public class EventoService {
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
-    
-    
+     
 
 }
