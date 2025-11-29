@@ -7,6 +7,15 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(
+        name = "utilizador",
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_utilizador_email",
+                columnNames = "email"
+        )
+)
+
 public class Utilizador {
     @Id
     @Column(name = "numero", nullable = false)
