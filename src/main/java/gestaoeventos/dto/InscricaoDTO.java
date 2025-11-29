@@ -1,5 +1,6 @@
 package gestaoeventos.dto;
 
+import gestaoeventos.entity.EstadoInscricao;
 import java.time.LocalDateTime;
 
 public class InscricaoDTO {
