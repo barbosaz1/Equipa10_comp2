@@ -23,4 +23,18 @@ public class InscricaoController {
     public List<InscricaoDTO> listarPorUtilizador(@PathVariable Integer numero) {
         return inscricaoService.listarPorUtilizador(numero);
     }
+    @GetMapping("/{id}")
+    public InscricaoDTO obter(@PathVariable Integer id) {
+        return inscricaoService.obterPorId(id);
+    }
+
+    @PostMapping("/{id}/cancelar")
+    public InscricaoDTO cancelar(@PathVariable Integer id) {
+        return inscricaoService.cancelarInscricao(id);
+    }
+
+    @PostMapping("/{id}/checkin")
+    public InscricaoDTO checkin(@PathVariable Integer id) {
+        return inscricaoService.fazerCheckin(id);
+    }
 }
