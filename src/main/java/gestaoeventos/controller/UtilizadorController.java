@@ -18,6 +18,16 @@ public class UtilizadorController {
     public UtilizadorController(UtilizadorService utilizadorService) {
         this.utilizadorService = utilizadorService;
     }
+    
+    @PatchMapping("/{numero}/ativar")
+    public UtilizadorDTO ativar(@PathVariable Integer numero) {
+        return utilizadorService.alterarEstadoAtivo(numero, true);
+    }
+
+    @PatchMapping("/{numero}/desativar")
+    public UtilizadorDTO desativar(@PathVariable Integer numero) {
+        return utilizadorService.alterarEstadoAtivo(numero, false);
+    }
 
     @GetMapping
     public List<UtilizadorDTO> listar() {

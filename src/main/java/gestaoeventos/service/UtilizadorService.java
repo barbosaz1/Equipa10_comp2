@@ -23,6 +23,15 @@ public class UtilizadorService {
         this.utilizadorRepository = utilizadorRepository;
         this.passwordEncoder = passwordEncoder;
     }
+    
+    public UtilizadorDTO alterarEstadoAtivo(Integer numero, boolean ativo) {
+        Utilizador u = utilizadorRepository.findById(numero)
+                .orElseThrow(() -> new NotFoundException("Utilizador não encontrado"));
+        u.setAtivo(ativo);
+        Utilizador salvo = utilizadorRepository.save(u);
+        return toDTO(salvo);
+    }
+
 
     public List<UtilizadorDTO> listarTodos() {
         return utilizadorRepository.findAll()
