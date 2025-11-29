@@ -26,7 +26,9 @@ public class LogAuditoriaController {
                                                    @PathVariable Integer id) {
         return logAuditoriaService.listarPorEntidade(entidade, id);
     }
-
     
-
+    @GetMapping("/autor/{numero}")
+    public List<LogAuditoriaDTO> listarPorAutor(@PathVariable Integer numero) {
+        return logAuditoriaService.listarPorAutor(numero);
+    } 
 }
