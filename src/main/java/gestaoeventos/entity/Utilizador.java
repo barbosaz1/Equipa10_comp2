@@ -62,7 +62,7 @@ public class Utilizador {
     @OneToMany(mappedBy = "autor")
     private Set<LogAuditoria> logsCriados = new HashSet<>();
     
-    // getters e setters
+    // GETTERS E SETTERS
 
     public Integer getNumero() {
         return numero;
