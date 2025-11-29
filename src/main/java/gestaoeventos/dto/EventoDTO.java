@@ -5,7 +5,7 @@ import gestaoeventos.entity.TipoEvento;
 
 import java.time.LocalDateTime;
 
-public class EeventoDTO {
+public class EventoDTO {
 	
 	private Integer id;
     private String titulo;
