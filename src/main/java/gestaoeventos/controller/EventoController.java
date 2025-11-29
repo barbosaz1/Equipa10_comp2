@@ -34,5 +34,28 @@ public class EventoController {
     public EventoDTO obter(@PathVariable Integer id) {
         return eventoService.obterPorId(id);
     }
+    
+    @PostMapping
+    public ResponseEntity<EventoDTO> criar(@RequestBody EventoCreateDTO dto) {
+        EventoDTO criado = eventoService.criar(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(criado);
+    }
+
+    @PostMapping("/{id}/publicar")
+    public EventoDTO publicar(@PathVariable Integer id,@RequestParam Integer autorNumero) {
+        return eventoService.publicar(id, autorNumero);
+    }
+
+    @PostMapping("/{id}/cancelar")
+    public EventoDTO cancelar(@PathVariable Integer id,@RequestParam Integer autorNumero,@RequestBody Map<String, String> body) {
+        String motivo = body.getOrDefault("motivo", "Sem motivo indicado");
+        return eventoService.cancelar(id, autorNumero, motivo);
+    }
+
+    @PostMapping("/{id}/inscrever")
+    public ResponseEntity<String> inscrever(@PathVariable Integer id,@RequestParam Integer utilizadorNumero) {
+        String resultado = eventoService.inscreverEmEvento(id, utilizadorNumero);
+        return ResponseEntity.ok(resultado);
+    }
 
 }
