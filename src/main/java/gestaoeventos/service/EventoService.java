@@ -268,6 +268,76 @@ public class EventoService {
         return dto;
     }
     
+    /**
+     * Pesquisa de eventos com filtros opcionais:
+     * - intervalo de datas (dataInicio)
+     * - tipo (enum TipoEvento)
+     * - localId
+     * - organizadorNumero (criador)
+     */
+    public List<EventoDTO> pesquisar(String inicioStr,
+                                     String fimStr,
+                                     String tipoStr,
+                                     Integer localId,
+                                     Integer organizadorNumero) {
+
+        List<Evento> todos = eventoRepository.findAll();
+        Stream<Evento> stream = todos.stream();
+
+        // Filtrar por intervalo de datas
+        LocalDateTime inicio = null;
+        LocalDateTime fim = null;
+        try {
+            if (inicioStr != null && !inicioStr.isBlank()) {
+                inicio = LocalDateTime.parse(inicioStr);
+            }
+            if (fimStr != null && !fimStr.isBlank()) {
+                fim = LocalDateTime.parse(fimStr);
+            }
+        } catch (DateTimeParseException e) {
+            throw new BusinessException(
+                    "Formato de data inválido. Use ISO-8601, ex: 2025-12-01T10:00:00"
+            );
+        }
+
+        if (inicio != null) {
+            LocalDateTime finalInicio = inicio;
+            stream = stream.filter(e -> e.getDataInicio() != null &&
+                    !e.getDataInicio().isBefore(finalInicio));
+        }
+        if (fim != null) {
+            LocalDateTime finalFim = fim;
+            stream = stream.filter(e -> e.getDataInicio() != null &&
+                    !e.getDataInicio().isAfter(finalFim));
+        }
+
+        // Filtrar por tipo
+        if (tipoStr != null && !tipoStr.isBlank()) {
+            try {
+                TipoEvento tipoEnum = TipoEvento.valueOf(tipoStr);
+                stream = stream.filter(e -> e.getTipo() == tipoEnum);
+            } catch (IllegalArgumentException ex) {
+                throw new BusinessException("Tipo de evento inválido");
+            }
+        }
+
+        // Filtrar por local
+        if (localId != null) {
+            stream = stream.filter(e -> e.getLocal() != null &&
+                    e.getLocal().getId().equals(localId));
+        }
+
+        // Filtrar por organizador
+        if (organizadorNumero != null) {
+            stream = stream.filter(e -> e.getCriador() != null &&
+                    e.getCriador().getNumero().equals(organizadorNumero));
+        }
+
+        return stream
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+    
     
 
 }
