@@ -204,6 +204,70 @@ public class EventoService {
         return "INSCRICAO_OK";
     }
     
+    /**
+     * Promove o primeiro da lista de espera a inscrição ativa.
+     */
+    public void promoverDaListaEspera(Integer eventoId) {
+        ListaEspera proximo = listaEsperaRepository
+                .findFirstByEventoIdOrderByPosicaoAsc(eventoId)
+                .orElse(null);
+
+        if (proximo == null) {
+            return;
+        }
+
+        Evento evento = eventoRepository.findById(eventoId)
+                .orElseThrow(() -> new NotFoundException("Evento não encontrado"));
+
+        Inscricao nova = new Inscricao();
+        nova.setEvento(evento);
+        nova.setUtilizador(proximo.getUtilizador());
+        nova.setEstado(EstadoInscricao.ATIVA);
+        nova.setDataInscricao(LocalDateTime.now());
+
+        // gerar novo token para a nova inscrição promovida
+        Inscricao salvo = inscricaoRepository.save(nova);
+        String token = "CHK-" + salvo.getId() + "-" + UUID.randomUUID();
+        salvo.setQrCodeCheckin(token);
+        if (evento.getDataInicio() != null) {
+            salvo.setValidadeQrcode(evento.getDataInicio().plusHours(2));
+        }
+        inscricaoRepository.save(salvo);
+
+        listaEsperaRepository.delete(proximo);
+
+        registarLog("PROMOVER_LISTA_ESPERA", "Evento", eventoId, proximo.getUtilizador(), null);
+    }
+
+    private void registarLog(String acao, String entidade, Integer entidadeId,
+                             Utilizador autor, String motivo) {
+        LogAuditoria log = new LogAuditoria();
+        log.setAcao(acao);
+        log.setEntidade(entidade);
+        log.setEntidadeId(entidadeId);
+        log.setAutor(autor);
+        log.setMotivo(motivo);
+        // dataHora e ipOrigem podem ser preenchidos automaticamente na entity, se quiseres
+        logAuditoriaRepository.save(log);
+    }
+
+    private EventoDTO toDTO(Evento e) {
+        EventoDTO dto = new EventoDTO();
+        dto.setId(e.getId());
+        dto.setTitulo(e.getTitulo());
+        dto.setDescricao(e.getDescricao());
+        dto.setDataInicio(e.getDataInicio());
+        dto.setDataFim(e.getDataFim());
+        dto.setMaxParticipantes(e.getMaxParticipantes());
+        dto.setEstado(e.getEstado());
+        dto.setTipo(e.getTipo());
+        dto.setAreaTematica(e.getAreaTematica());
+        dto.setCriadorNumero(e.getCriador().getNumero());
+        dto.setLocalId(e.getLocal().getId());
+        dto.setMotivoRemocao(e.getMotivoRemocao());
+        return dto;
+    }
+    
     
 
 }
