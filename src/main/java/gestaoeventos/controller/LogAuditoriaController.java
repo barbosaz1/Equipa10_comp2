@@ -15,4 +15,10 @@ public class LogAuditoriaController {
     public LogAuditoriaController(LogAuditoriaService logAuditoriaService) {
         this.logAuditoriaService = logAuditoriaService;
     }
+    
+    @GetMapping
+    public List<LogAuditoriaDTO> listarTodos() {
+        return logAuditoriaService.listarTodos();
+    }
+
 }
