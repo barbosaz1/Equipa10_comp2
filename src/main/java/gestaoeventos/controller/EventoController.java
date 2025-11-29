@@ -19,5 +19,20 @@ public class EventoController {
     public EventoController(EventoService eventoService) {
         this.eventoService = eventoService;
     }
+    
+    @GetMapping("/search")
+    public List<EventoDTO> pesquisar(@RequestParam(required = false) String inicio,@RequestParam(required = false) String fim,@RequestParam(required = false) String tipo,@RequestParam(required = false) Integer localId,@RequestParam(required = false) Integer organizadorNumero) {
+        return eventoService.pesquisar(inicio, fim, tipo, localId, organizadorNumero);
+    }
+
+    @GetMapping
+    public List<EventoDTO> listar() {
+        return eventoService.listarTodos();
+    }
+
+    @GetMapping("/{id}")
+    public EventoDTO obter(@PathVariable Integer id) {
+        return eventoService.obterPorId(id);
+    }
 
 }
