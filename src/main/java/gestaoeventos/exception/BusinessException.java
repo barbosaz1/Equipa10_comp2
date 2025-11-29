@@ -1,7 +1,10 @@
 package gestaoeventos.exception;
 
 public class BusinessException extends RuntimeException {
-    public BusinessException(String msg) {
-        super(msg);
+
+    private static final long serialVersionUID = 1L;
+
+    public BusinessException(String message) {
+        super(message);
     }
 }
