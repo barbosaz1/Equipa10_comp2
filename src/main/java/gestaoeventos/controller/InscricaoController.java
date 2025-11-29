@@ -14,4 +14,13 @@ public class InscricaoController {
     public InscricaoController(InscricaoService inscricaoService) {
         this.inscricaoService = inscricaoService;
     }
+    @GetMapping("/evento/{eventoId}")
+    public List<InscricaoDTO> listarPorEvento(@PathVariable Integer eventoId) {
+        return inscricaoService.listarPorEvento(eventoId);
+    }
+
+    @GetMapping("/utilizador/{numero}")
+    public List<InscricaoDTO> listarPorUtilizador(@PathVariable Integer numero) {
+        return inscricaoService.listarPorUtilizador(numero);
+    }
 }
