@@ -1,7 +1,6 @@
 package gestaoeventos.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,6 +10,14 @@ public class Notificacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "destinatario_numero", nullable = false)
+    private Utilizador destinatario;
+
+    @ManyToOne
+    @JoinColumn(name = "evento_id")
+    private Evento evento;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false, length = 40)
@@ -28,24 +35,9 @@ public class Notificacao {
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(
-            name = "destinatario_numero",
-            foreignKey = @ForeignKey(name = "fk_notificacao_destinatario")
-    )
-    private Utilizador destinatario;
+    public Notificacao() {}
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "evento_id",
-            foreignKey = @ForeignKey(name = "fk_notificacao_evento")
-    )
-    private Evento eventoRelacionado;
-
-    public Notificacao() {
-    }
-
-    // getters e setters
+    // GETTERS & SETTERS OBRIGATÓRIOS
 
     public Integer getId() {
         return id;
@@ -53,6 +45,22 @@ public class Notificacao {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Utilizador getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(Utilizador destinatario) {
+        this.destinatario = destinatario;
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
     }
 
     public TipoNotificacao getTipo() {
@@ -93,21 +101,5 @@ public class Notificacao {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    public Utilizador getDestinatario() {
-        return destinatario;
-    }
-
-    public void setDestinatario(Utilizador destinatario) {
-        this.destinatario = destinatario;
-    }
-
-    public Evento getEventoRelacionado() {
-        return eventoRelacionado;
-    }
-
-    public void setEventoRelacionado(Evento eventoRelacionado) {
-        this.eventoRelacionado = eventoRelacionado;
     }
 }

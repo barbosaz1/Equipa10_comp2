@@ -1,12 +1,10 @@
 package gestaoeventos.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "inscricao",
+@Table(name = "inscricao",
         uniqueConstraints = @UniqueConstraint(
                 name = "uk_inscricao_utilizador_evento",
                 columnNames = {"utilizador_numero", "evento_id"}
@@ -18,6 +16,14 @@ public class Inscricao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "evento_id", nullable = false)
+    private Evento evento;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "utilizador_numero", nullable = false)
+    private Utilizador utilizador;
+
     @Column(name = "data_inscricao", nullable = false)
     private LocalDateTime dataInscricao = LocalDateTime.now();
 
@@ -28,33 +34,18 @@ public class Inscricao {
     @Column(name = "check_in", nullable = false)
     private boolean checkIn = false;
 
+    @Column(name = "data_checkin")
+    private LocalDateTime dataCheckin;
+
     @Column(name = "qr_code_checkin", length = 100)
-    private String qrCodeCheckIn;
+    private String qrCodeCheckin;
 
     @Column(name = "validade_qrcode")
-    private LocalDateTime validadeQRCode;
+    private LocalDateTime validadeQrcode;
 
-    @Column(name = "data_checkin")
-    private LocalDateTime dataCheckIn;
+    public Inscricao() {}
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(
-            name = "utilizador_numero",
-            foreignKey = @ForeignKey(name = "fk_inscricao_utilizador")
-    )
-    private Utilizador utilizador;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(
-            name = "evento_id",
-            foreignKey = @ForeignKey(name = "fk_inscricao_evento")
-    )
-    private Evento evento;
-
-    public Inscricao() {
-    }
-
-    // getters e setters
+    // GETTERS & SETTERS OBRIGATÓRIOS
 
     public Integer getId() {
         return id;
@@ -62,6 +53,22 @@ public class Inscricao {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Evento getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+    }
+
+    public Utilizador getUtilizador() {
+        return utilizador;
+    }
+
+    public void setUtilizador(Utilizador utilizador) {
+        this.utilizador = utilizador;
     }
 
     public LocalDateTime getDataInscricao() {
@@ -88,43 +95,27 @@ public class Inscricao {
         this.checkIn = checkIn;
     }
 
-    public String getQrCodeCheckIn() {
-        return qrCodeCheckIn;
+    public LocalDateTime getDataCheckin() {
+        return dataCheckin;
     }
 
-    public void setQrCodeCheckIn(String qrCodeCheckIn) {
-        this.qrCodeCheckIn = qrCodeCheckIn;
+    public void setDataCheckin(LocalDateTime dataCheckin) {
+        this.dataCheckin = dataCheckin;
     }
 
-    public LocalDateTime getValidadeQRCode() {
-        return validadeQRCode;
+    public String getQrCodeCheckin() {
+        return qrCodeCheckin;
     }
 
-    public void setValidadeQRCode(LocalDateTime validadeQRCode) {
-        this.validadeQRCode = validadeQRCode;
+    public void setQrCodeCheckin(String qrCodeCheckin) {
+        this.qrCodeCheckin = qrCodeCheckin;
     }
 
-    public LocalDateTime getDataCheckIn() {
-        return dataCheckIn;
+    public LocalDateTime getValidadeQrcode() {
+        return validadeQrcode;
     }
 
-    public void setDataCheckIn(LocalDateTime dataCheckIn) {
-        this.dataCheckIn = dataCheckIn;
-    }
-
-    public Utilizador getUtilizador() {
-        return utilizador;
-    }
-
-    public void setUtilizador(Utilizador utilizador) {
-        this.utilizador = utilizador;
-    }
-
-    public Evento getEvento() {
-        return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
+    public void setValidadeQrcode(LocalDateTime validadeQrcode) {
+        this.validadeQrcode = validadeQrcode;
     }
 }
