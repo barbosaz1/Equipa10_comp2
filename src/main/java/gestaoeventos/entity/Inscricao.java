@@ -45,7 +45,7 @@ public class Inscricao {
 
     public Inscricao() {}
 
-    // GETTERS & SETTERS OBRIGATÓRIOS
+    // GETTERS & SETTERS 
 
     public Integer getId() {
         return id;
