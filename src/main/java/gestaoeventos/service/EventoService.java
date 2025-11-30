@@ -1,6 +1,3 @@
-/**
- * 
- */
 package gestaoeventos.service;
 
 import gestaoeventos.dto.EventoCreateDTO;
@@ -31,9 +28,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * 
- */
 public class EventoService {
 	
 	private final EventoRepository eventoRepository;
