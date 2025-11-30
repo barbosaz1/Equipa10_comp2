@@ -13,7 +13,7 @@ public class AuthController {
     // Serviço que trata da autenticação
     private final AuthService authService;
 
-    // Construtor: o Spring injeta o AuthService
+    // Construtor
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
