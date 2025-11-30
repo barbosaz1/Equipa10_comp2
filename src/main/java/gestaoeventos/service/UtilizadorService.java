@@ -20,7 +20,7 @@ public class UtilizadorService {
     // Encoder para criar hash da password (não armazenamos a password em claro)
     private final PasswordEncoder passwordEncoder;
 
-    // Construtor com injeção de dependências
+    // Construtor
     public UtilizadorService(UtilizadorRepository utilizadorRepository,
                              PasswordEncoder passwordEncoder) {
         this.utilizadorRepository = utilizadorRepository;
