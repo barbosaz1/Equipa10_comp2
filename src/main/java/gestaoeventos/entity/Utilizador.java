@@ -27,7 +27,7 @@ public class Utilizador {
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
-    // Nome completo do utilizador.
+    // Nome do utilizador.
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
