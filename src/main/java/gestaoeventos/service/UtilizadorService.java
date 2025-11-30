@@ -62,8 +62,6 @@ public class UtilizadorService {
 
     /**
      * Cria um novo utilizador a partir do DTO de criação.
-     * Valida campos obrigatórios, impede duplicados por número ou email,
-     * faz hash da password antes de guardar.
      * Lança BusinessException em casos de validação/negócio.
      */
     public UtilizadorDTO criar(UtilizadorCreateDTO dto) {
