@@ -172,7 +172,6 @@ public class EventoService {
             return "EVENTO_LOTADO_LISTA_ESPERA";
         }
 
-        // ---------- INSCRIÇÃO NORMAL + QR CODE ----------
         Inscricao insc = new Inscricao();
         insc.setEvento(evento);
         insc.setUtilizador(utilizador);
@@ -241,7 +240,6 @@ public class EventoService {
         log.setEntidadeId(entidadeId);
         log.setAutor(autor);
         log.setMotivo(motivo);
-        // dataHora e ipOrigem podem ser preenchidos automaticamente na entity, se quiseres
         logAuditoriaRepository.save(log);
     }
 
@@ -290,7 +288,7 @@ public class EventoService {
             }
         } catch (DateTimeParseException e) {
             throw new BusinessException(
-                    "Formato de data inválido. Use ISO-8601, ex: 2025-12-01T10:00:00"
+                    "Formato de data inválido, ex: 2025-12-01T10:00:00"
             );
         }
 
